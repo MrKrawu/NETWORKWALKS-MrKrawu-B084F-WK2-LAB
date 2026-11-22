@@ -1,0 +1,104 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Penetration Testing Report – W2-PM2 / W2-PM3</title>
+<style>
+@page{size:A4;margin:18mm 18mm 20mm 18mm;@bottom-center{content:"Pentesting Project Report  |  Networkwalks  |  Page " counter(page);font:8pt Arial,sans-serif;color:#666}}
+body{font:10pt/1.45 "Liberation Sans",Arial,sans-serif;color:#111}
+h1{color:#c00000;font-size:26pt;text-align:center;margin:10pt 0 8pt}
+.sub{color:#c00000;text-align:center;font-size:14pt}.sub2{text-align:center;color:#444;margin:6pt 0 14pt}
+h2{color:#c00000;font-size:13pt;margin:18pt 0 6pt;break-after:avoid}h3{color:#c00000;font-size:11pt;margin:12pt 0 4pt;break-after:avoid}
+table{border-collapse:collapse;width:100%}
+table.m td{border:1px solid #333;padding:5pt 7pt;vertical-align:middle}
+table.m td:first-child{background:#c00000;color:#fff;font-weight:bold;text-align:center;width:32%}
+table.m tr:first-child td:first-child{background:#595959}table.m tr:first-child td:last-child{background:#595959;color:#fff;font-weight:bold}
+table.g th{background:#c00000;color:#fff;text-align:left;padding:4pt 6pt;border:1px solid #333}
+table.g td{border:1px solid #333;padding:4pt 6pt;vertical-align:top}
+table.d{font-size:7.6pt;margin:6pt 0 10pt;table-layout:fixed}
+table.d th{background:#c00000;color:#fff;padding:3pt 4pt;border:1px solid #333;text-align:left}
+table.d td{border:1px solid #333;padding:3pt 4pt;vertical-align:top;word-break:break-all}
+table.d .n{width:6%;text-align:center}table.d .c{width:11%}table.d td.l{width:51%}
+table.d tr:nth-child(even) td{background:#f5f5f5}
+code{font:7.4pt "Liberation Mono",monospace}a{color:#0563c1;text-decoration:none}
+.r1{color:#c00000;font-weight:bold}.med{color:#e69500;font-weight:bold}.low{color:#2e8b3d;font-weight:bold}
+figure{margin:8pt 0;text-align:center;break-inside:avoid}figure img{max-width:100%;border:1px solid #999}figcaption{font-size:8.5pt;color:#555;margin-top:3pt}
+.note{border-left:3px solid #c00000;background:#fbeeee;padding:4pt 8pt;margin:6pt 0}
+ol li,ul li{margin-bottom:3pt}.pb{break-before:page}
+.auth{border-top:2px solid #bbb;margin-top:16pt;padding-top:6pt}
+</style></head><body>
+<h1>PENETRATION TESTING REPORT</h1>
+<div class="sub">FOOTPRINTING PHASE – GHDB &amp; MALTEGO</div>
+<div class="sub2">W2-PM-FINAL  |  CYBERSECURITY  |  NETWORKWALKS</div>
+<table class="m">
+<tr><td>Pentester Name (Cybersecurity Professional)</td><td>Karsten Krawutschke</td></tr>
+<tr><td>Program/Batch</td><td>B084F – Networkwalks</td></tr>
+<tr><td>Date</td><td>22 November 2026</td></tr>
+<tr><td>Modules completed</td><td>W2-PM2 (GHDB Footprinting)<br>W2-PM3 (Maltego Footprinting)</td></tr>
+<tr><td>Client/Target</td><td>1. Publicly indexed internet sources via Google (passive, no target contacted)<br>2. networkwalks.com (domain assigned by the program task)</td></tr>
+<tr><td>Permission secured from client?</td><td>Target domain networkwalks.com assigned by Networkwalks in the module task; GHDB part uses public search results only</td></tr>
+<tr><td>Phases covered</td><td><b>Phase 1:</b> Reconnaissance &amp; Footprinting<br><b>Phase 2-5:</b> not covered by these two modules</td></tr>
+</table>
+
+<h2>1. Liability Disclaimer</h2>
+<p>I have performed these activities only as part of the assigned educational cybersecurity lab. The GHDB searches used publicly indexed search results only, and the Maltego work was limited to the domain assigned in the task. All materials are for education and research purposes only. Do not use anything from here to break the law. The instructor, the authors and Networkwalks are not responsible for what you do with this knowledge. Every action you take is your own responsibility. Misuse can lead to criminal charges, heavy fines, loss of your job and a permanent record. In most countries unauthorised access is a crime even when nothing is damaged.</p>
+
+<h2>2. Introduction</h2>
+<p>This report covers two footprinting modules of Week 2: Google Hacking Database (GHDB) dorks to find publicly exposed devices and files (W2-PM2), and Maltego to harvest e-mail and mail-infrastructure information about the domain networkwalks.com (W2-PM3). Both modules belong to Phase 1 (Reconnaissance &amp; Footprinting). They show how an attacker collects information from public sources without attacking the target itself.</p>
+<p>The lab ran in a Kali Linux virtual machine (VirtualBox, local IP 10.0.0.4/24) and in Maltego Desktop 4.13.0. For each activity this report lists the dork or transform used, the result observed, evidence, and why the finding matters from an attacker's point of view.</p>
+
+<h2>3. Tools Used</h2>
+<table class="g"><tr><th style="width:30%">Tool</th><th>Purpose</th></tr>
+<tr><td>Kali Linux (VirtualBox)</td><td>Operating system of the lab environment.</td></tr>
+<tr><td>Google Search</td><td>Run GHDB dorks against Google's index.</td></tr>
+<tr><td>GHDB (exploit-db.com)</td><td>Source of ready-made Google dorks (search term "cam" for cameras).</td></tr>
+<tr><td>Maltego Desktop 4.13.0</td><td>Graph-based OSINT tool; transforms collect e-mail addresses and DNS records of a domain.</td></tr></table>
+
+<h2>4. Activities Performed</h2>
+<h3>4.1 W2-PM2 – GHDB based Footprinting</h3>
+<p>I opened the GHDB on exploit-db.com, searched for the term "cam", copied dorks one by one into Google and opened the results to check whether a camera page was reachable. Every finding was recorded with the exact dork used. The table lists the ten exposed webcam links that I found (Task 1). Credentials: none were entered or needed to be entered by me.</p>
+<h3>Task 1 – Exposed security cameras (10 links)</h3>
+<table class="d"><tr><th class="n">No.</th><th>Link</th><th>Relevant Dork</th><th class="c">Credentials</th></tr><tr><td class="n">1</td><td class="l"><a href="http://184.57.102.6:6500/multi.html">http://184.57.102.6:6500/multi.html</a></td><td><code>&quot;Active Webcam Page&quot; inurl:8080</code></td><td class="c">-</td></tr><tr><td class="n">2</td><td class="l"><a href="http://61.78.164.58:8089/multi.html">http://61.78.164.58:8089/multi.html</a></td><td><code>&quot;Active Webcam Page&quot; inurl:8080</code></td><td class="c">-</td></tr><tr><td class="n">3</td><td class="l"><a href="http://95.255.183.164:8080">http://95.255.183.164:8080</a></td><td><code>intitle: Android Webcam Server inurl: 8080</code></td><td class="c">–</td></tr><tr><td class="n">4</td><td class="l"><a href="http://178.192.60.80:8888">http://178.192.60.80:8888</a></td><td><code>intitle:&quot;Yawcam&quot; inurl:8081</code></td><td class="c">–</td></tr><tr><td class="n">5</td><td class="l"><a href="http://209.160.17.93:5000">http://209.160.17.93:5000</a></td><td><code>intitle:&quot;Yawcam&quot; inurl:8081</code></td><td class="c">–</td></tr><tr><td class="n">6</td><td class="l"><a href="http://mail.nutritechsolutions.com:8002/index.html?size=1&amp;mode=0">http://mail.nutritechsolutions.com:8002/index.html?size=1&amp;mode=0</a></td><td><code>intitle:&quot;NetCamSC*&quot;</code></td><td class="c">–</td></tr><tr><td class="n">7</td><td class="l"><a href="http://cam1.kuakini.org/index.html?size=0&amp;mode=0">http://cam1.kuakini.org/index.html?size=0&amp;mode=0</a></td><td><code>intitle:&quot;NetCamSC*&quot;</code></td><td class="c">–</td></tr><tr><td class="n">8</td><td class="l"><a href="https://www.ipcamlive.com/64a530efb34bd">https://www.ipcamlive.com/64a530efb34bd</a></td><td><code>intitle:ip camera login page</code></td><td class="c">–</td></tr><tr><td class="n">9</td><td class="l"><a href="http://46.14.77.226:8880/view/index.shtml">http://46.14.77.226:8880/view/index.shtml</a></td><td>–</td><td class="c">–</td></tr><tr><td class="n">10</td><td class="l"><a href="http://173.12.123.133:82/view/index.shtml">http://173.12.123.133:82/view/index.shtml</a></td><td><code>intitle: AXIS 2. inurl:8080</code></td><td class="c">–</td></tr></table>
+<p>The dorks target the default page titles and URL patterns of webcam software (for example Yawcam, NetCamSC, AXIS, Android Webcam Server). These pages are indexed by Google because the owners never restricted them.</p>
+
+<h3>Task 2 – Downloadable PDF ebook listings (10 links)</h3>
+<p>Dorks such as <code>intitle:"index of" "parent directory"</code> and <code>filetype:pdf</code> list open directories and downloadable PDF files. The table shows ten listings I found; all were publicly accessible without credentials.</p>
+<table class="d"><tr><th class="n">No.</th><th>Link</th><th>Relevant Dork</th><th class="c">Credentials</th></tr><tr><td class="n">1</td><td class="l"><a href="https://www.prosec-networks.com/wp-content/uploads/wstg-v4.2.pdf">https://www.prosec-networks.com/wp-content/uploads/wstg-v4.2.pdf</a></td><td><code>intitle index of &quot;parent directory&quot; mathematics filetype:pdf &amp;sort=age:asc</code></td><td class="c">-</td></tr><tr><td class="n">2</td><td class="l"><a href="https://digtvbg.com/files/books-for-hacking/The%20Web%20Application%20Hacker%27s%20Handbook%20-%20Finding%20and%20Exploiting%20Security%20Flaws%2C%202nd%20Edition%20by%20Dafydd%20Stuttard%2C%20Marcus%20Pinto.pdf">https://digtvbg.com/files/books-for-hacking/The%20Web%20Application%20Hacker%27s%20Handbook%20-%20Finding%20and%20Exploiting%20Security%20Flaws%2C%202nd%20Edition%20by%20Dafydd%20Stuttard%2C%20Marcus%20Pinto.pdf</a></td><td>–</td><td class="c">-</td></tr><tr><td class="n">3</td><td class="l"><a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Kali-Linux-Revealed-2021-edition.pdf">https://upload.wikimedia.org/wikipedia/commons/5/5d/Kali-Linux-Revealed-2021-edition.pdf</a></td><td>–</td><td class="c">–</td></tr><tr><td class="n">4</td><td class="l"><a href="https://0ut3r.space/2023/07/04/worth-checking-1/Blue_Team_Toolkit.pdf">https://0ut3r.space/2023/07/04/worth-checking-1/Blue_Team_Toolkit.pdf</a></td><td><code>intitle:blueteam filetype:pdf</code></td><td class="c">–</td></tr><tr><td class="n">5</td><td class="l"><a href="https://openlibro.com/wp-content/uploads/2026/08/lpi-learning-materials-lpic-1-102-version-5-0-espanol.pdf">https://openlibro.com/wp-content/uploads/2026/08/lpi-learning-materials-lpic-1-102-version-5-0-espanol.pdf</a></td><td><code>intitle:lpic filetype:pdf after:2022</code></td><td class="c">–</td></tr><tr><td class="n">6</td><td class="l"><a href="https://cisconerd.dk/CCNA/CCNA_v30_glossary.pdf">https://cisconerd.dk/CCNA/CCNA_v30_glossary.pdf</a></td><td><code>intitle:ccna filetype:pdf after:2022</code></td><td class="c">–</td></tr><tr><td class="n">7</td><td class="l"><a href="https://faspco.com/academy/Ebook/Cisco/Cisco%20CCNA%20200-301%20PassFast_%20Cisco%20Certified%20Network%20Associate%20_CCNA%20200-301.pdf">https://faspco.com/academy/Ebook/Cisco/Cisco%20CCNA%20200-301%20PassFast_%20Cisco%20Certified%20Network%20Associate%20_CCNA%20200-301.pdf</a></td><td>–</td><td class="c">–</td></tr><tr><td class="n">8</td><td class="l"><a href="https://www.ciscolive.com/c/dam/r/ciscolive/global-event/docs/2025/pdf/BRKCRT-2024.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/global-event/docs/2025/pdf/BRKCRT-2024.pdf</a></td><td>–</td><td class="c">–</td></tr><tr><td class="n">9</td><td class="l"><a href="https://www.howtonetwork.com/wp-content/uploads/2023/08/CCNA_Cram.pdf">https://www.howtonetwork.com/wp-content/uploads/2023/08/CCNA_Cram.pdf</a></td><td>–</td><td class="c">–</td></tr><tr><td class="n">10</td><td class="l"><a href="https://readnestify.com/read/cysa-practice-labs-free-5063989">https://readnestify.com/read/cysa-practice-labs-free-5063989</a></td><td><code>intitle:cysa filetype:pdf after:2025</code></td><td class="c">–</td></tr></table>
+<p style="font-size:9pt">Dorks that I did not note down are shown as "–".</p>
+
+<h3>4.2 W2-PM3 – Footprinting with Maltego</h3>
+<p>I installed Maltego Desktop (version 4.13.0), completed the configuration and the Maltego ID registration, and started a new graph. I dragged a <b>Domain</b> entity onto the canvas, renamed it to <b>networkwalks.com</b> and ran e-mail and DNS related transforms (for example <i>To Email Addresses [PGP]</i>, <i>Search Web [Search Engine]</i> and <i>To DNS Name – MX (mail server)</i>).</p>
+<p><b>Result:</b> the graph shows two entities linked to the domain:</p>
+<ul><li>E-mail address <b>info@networkwalks.com</b></li><li>Mail server <b>mail.networkwalks.com</b> (MX record)</li></ul>
+<figure><img src="../evidence/maltego_graph.png"><figcaption>Figure 1 – Maltego graph for networkwalks.com: e-mail address and MX host (Detail View lists both relationships).</figcaption></figure>
+
+<h2>5. Risk Analysis / Impact</h2>
+<table class="g"><tr><th style="width:4%">#</th><th style="width:20%">Risk / Finding</th><th style="width:28%">Evidence / Observation</th><th>Potential Impact</th><th style="width:10%">Risk Level</th></tr>
+<tr><td>1</td><td>Exposed webcam interfaces</td><td>10 camera pages reachable from the internet via GHDB dorks (Task 1)</td><td>Strangers can watch private or business premises; default/no login makes abuse trivial; devices can serve as entry points into a network</td><td class="r1">● Critical</td></tr>
+<tr><td>2</td><td>Publicly listed file directories</td><td>10 PDF listings found via <code>filetype:pdf</code> / "index of" dorks (Task 2)</td><td>Files not meant for the public can be found; open directories can also leak internal documents</td><td class="med">● Medium</td></tr>
+<tr><td>3</td><td>Server IPs and ports visible</td><td>Camera links contain raw IP addresses and non-standard ports (6500, 8089, 8888 ...)</td><td>Gives attackers a target list for port scans and vulnerability checks</td><td class="med">● Medium</td></tr>
+<tr><td>4</td><td>Contact e-mail address discoverable</td><td>Maltego found info@networkwalks.com</td><td>Basis for phishing or social engineering against the organisation</td><td class="low">● Low</td></tr>
+<tr><td>5</td><td>Mail infrastructure identifiable</td><td>Maltego resolved MX host mail.networkwalks.com</td><td>Reveals where mail is handled; helps to profile the infrastructure</td><td class="low">● Low</td></tr></table>
+<p style="font-size:9pt">Risk level key: <span class="r1">● Critical</span> <span class="med">● Medium</span> <span class="low">● Low</span></p>
+<p>These are observations from passive footprinting, not confirmed vulnerabilities. No login, exploitation or vulnerability validation was performed. Further authorised testing would be required to confirm any actual weakness. The risk levels reflect the general exposure of such findings, not a tested impact on a specific owner.</p>
+
+<h2>6. Recommendations</h2>
+<ol>
+<li><b>Do not expose cameras directly to the internet</b><br>Place cameras behind a VPN or firewall, change default credentials and disable unused web interfaces.</li>
+<li><b>Search your own domains with GHDB</b><br>Defenders should run the same dorks on their own domains to find leaks before others do.</li>
+<li><b>Disable directory listing</b><br>Turn off "index of" listings on web servers and keep internal documents out of web roots.</li>
+<li><b>Use robots.txt and authentication carefully</b><br>robots.txt is not protection; sensitive content needs authentication, not just obscurity.</li>
+<li><b>Limit published contact data</b><br>Use role-based or protected addresses and train staff to recognise phishing that uses harvested addresses.</li>
+<li><b>Review DNS and mail records regularly</b><br>Publish only the records that are needed (MX, SPF, DKIM, DMARC) and review them periodically.</li>
+<li><b>Request removal from the search index</b><br>If something sensitive was indexed, remove it at the source and ask Google for removal.</li>
+<li><b>Perform security testing with authorisation</b><br>Recon and scanning only against systems for which written permission exists.</li>
+</ol>
+
+<h2>7. Conclusion</h2>
+<p>In Week 2 of my Cybersecurity &amp; Ethical Hacking internship I completed two footprinting modules. With GHDB I learned that ordinary Google searches, using the right operators, find exposed camera interfaces and open file listings without ever touching the targets. With Maltego I learned that a single domain entity and a few transforms are enough to map e-mail addresses and mail servers in a visual graph.</p>
+<p>Both exercises show that information gathering is the first step of an attack and that a lot of it happens in public sources. The same techniques serve defenders: whoever checks their own exposure first reduces the attack surface. I also learned to document each finding with the exact dork or transform, so that the result can be reproduced.</p>
+<p>Finally, footprinting must always stay within an authorised scope. These activities were completed as part of the assigned educational cybersecurity lab.</p>
+
+<h2>8. Evidences Collected</h2>
+<p>Source files of the result tables: <code>data/List_webcams.odt</code> (Task 1), <code>data/List_ebooks.odt</code> (Task 2).</p>
+<p><b>Evidence 1</b> – Maltego graph for networkwalks.com (W2-PM3): see Figure 1 in section 4.2.</p>
+<figure><img src="../evidence/kali_env.png" style="max-height:110mm"><figcaption>Evidence 2 – Lab environment: Kali Linux in VirtualBox, local IP 10.0.0.4/24 (fastfetch output).</figcaption></figure>
+<p>-End-</p>
+<div class="auth"><b>Author</b><br><b>Karsten Krawutschke</b><br>Cybersecurity Professional B084F<br><br><b>Program Name:</b> Cybersecurity program at Networkwalks | <b>Week:</b> 02</div>
+</body></html>
