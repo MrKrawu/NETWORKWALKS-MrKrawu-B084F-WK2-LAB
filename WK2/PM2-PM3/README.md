@@ -13,6 +13,7 @@ Author: Karsten Krawutschke · 22 November 2026
 
 | Module | Topic | Result |
 |---|---|---|
+| **W2-PM1** | Footprinting with the Recon-Utilities | Used against networkwalks.com |
 | **W2-PM2** | Footprinting with the Google Hacking Database (GHDB) | 10 exposed webcam pages + 10 public PDF listings, each with the dork used |
 | **W2-PM3** | Footprinting with Maltego | `networkwalks.com` → e-mail `info@networkwalks.com`, MX host `mail.networkwalks.com` |
 
