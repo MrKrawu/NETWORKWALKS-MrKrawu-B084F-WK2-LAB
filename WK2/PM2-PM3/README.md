@@ -24,6 +24,8 @@ Author: Karsten Krawutschke · 22 November 2026
 3. Open the results, check whether they are reachable, record link + dork.
 4. Repeat with `filetype:pdf` / "index of" dorks for the ebook listings.
 
+5. Start thinking... are there more useful combinations of params?
+
 **W2-PM3 – Maltego** (Desktop 4.13.0)
 1. Install and register, create a new graph.
 2. Drag a *Domain* entity, rename it to `networkwalks.com`.
